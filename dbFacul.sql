@@ -1,0 +1,15 @@
+create database DbFacul;
+use DbFacul;
+create table instrutores(id int(11) primary key auto_increment not null, nome varchar(50), email varchar(50), valor_hora int(10), certificados varchar(255));
+create table cursos(id int(10) primary key auto_increment not null, nome varchar(50), requisito varchar(255), carga_horaria smallint(5), preco double);
+create table turmas(id int(10) primary key auto_increment not null, data_inicio date, data_final date, carga_horaria smallint(5));
+create table matriculas(id int(10) primary key auto_increment not null, data_matricula date);
+create table alunos(id int(11) primary key auto_increment not null, cpf char(11), nome varchar(50), email varchar(50), fone char(14), data_nascimento date);
+alter table turmas add column instrutores_id int(11); 
+alter table turmas add constraint turmas_FKIndex1 foreign key (instrutores_id) references instrutores(id);
+alter table turmas add column cursos_id int(10);
+alter table turmas add constraint turmas_FKIndex2 foreign key (cursos_id) references cursos(id);
+alter table matriculas add column turmas_id int(10); 
+alter table matriculas add constraint matriculas_FKIndex1 foreign key (turmas_id) references turmas(id);
+alter table matriculas add column alunos_id int(11);
+alter table matriculas add constraint matriculas_FKIndex2 foreign key (alunos_id) references alunos(id);
